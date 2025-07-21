@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Archivos de entorno
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Configuraciones del editor
+.vscode/
+.idea/
+*.swp
+
+# Cachés / Builds (si se usan más adelante)
+dist/
+build/
+.cache/
+
+# Archivos Swagger generados automáticamente (si aplica)
+swagger-output.json
