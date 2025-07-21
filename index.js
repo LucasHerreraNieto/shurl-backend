@@ -11,39 +11,39 @@ dotenv.config();
 
 const app = express();
 
-// Middleware CORS
+// 🌐 CORS configurado para frontend en Vercel
 app.use(cors({
-  origin: process.env.FRONTEND_URL ,
+  origin: [process.env.FRONTEND_URL], // debe ser array
   credentials: true,
 }));
 
-// Middleware de sesión
+// 🧠 Middleware de sesión (si estás usando express-session)
 app.use(session({
   secret: process.env.SESSION_SECRET || 'fallback_secret',
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false, // Usá true si estás en producción con HTTPS
-    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production', // ✅ true si está en producción (Render)
+    sameSite: 'none', // ✅ permite envío de cookies entre dominios distintos (CROSS)
   },
 }));
 
-// Documentación Swagger
+// 📚 Documentación Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Otros middlewares
+// 🧱 Middlewares base
 app.use(express.json());
 app.use(cookieParser());
 
-// Conectar a MongoDB
+// 🔌 Conectar a MongoDB
 db();
 
-// Rutas
+// 📦 Rutas
 app.use('/users', require('./routes/UserRoutes'));
 app.use('/', require('./routes/UrlRoutes'));
 
-// Levantar servidor
+// 🚀 Levantar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
